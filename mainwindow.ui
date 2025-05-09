@@ -1,0 +1,993 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>黄山记账</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="logo.qrc">
+    <normaloff>:/src/con.png</normaloff>:/src/con.png</iconset>
+  </property>
+  <widget class="QWidget" name="mainLayout">
+   <widget class="QWidget" name="horizontalLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>91</width>
+      <height>581</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="sidebar" stretch="0,0,0">
+     <item>
+      <widget class="QPushButton" name="btnHome">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="font">
+        <font>
+         <family>YouYuan</family>
+         <pointsize>20</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>主页</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btnDashboard">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="font">
+        <font>
+         <family>YouYuan</family>
+         <pointsize>20</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>控制台</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btneditor">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="font">
+        <font>
+         <family>YouYuan</family>
+         <pointsize>20</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>记账</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="gridLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>90</x>
+      <y>0</y>
+      <width>701</width>
+      <height>581</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout">
+     <item row="0" column="0">
+      <widget class="QStackedWidget" name="pages">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="currentIndex">
+        <number>1</number>
+       </property>
+       <widget class="QWidget" name="Page0">
+        <widget class="QLabel" name="logo">
+         <property name="geometry">
+          <rect>
+           <x>230</x>
+           <y>100</y>
+           <width>211</width>
+           <height>181</height>
+          </rect>
+         </property>
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="pixmap">
+          <pixmap resource="logo.qrc">:/src/logo.png</pixmap>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="btnCreate">
+         <property name="geometry">
+          <rect>
+           <x>180</x>
+           <y>380</y>
+           <width>101</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>YouYuan</family>
+           <pointsize>16</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>创建用户</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="btnLogin">
+         <property name="geometry">
+          <rect>
+           <x>390</x>
+           <y>380</y>
+           <width>101</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>YouYuan</family>
+           <pointsize>16</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>用户登录</string>
+         </property>
+        </widget>
+       </widget>
+       <widget class="QWidget" name="Page1">
+        <widget class="QLineEdit" name="editNewUsername">
+         <property name="geometry">
+          <rect>
+           <x>270</x>
+           <y>250</y>
+           <width>171</width>
+           <height>31</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLabel" name="bkey">
+         <property name="geometry">
+          <rect>
+           <x>150</x>
+           <y>300</y>
+           <width>111</width>
+           <height>41</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>YouYuan</family>
+           <pointsize>22</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string> 密  码</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="acreatelogo">
+         <property name="geometry">
+          <rect>
+           <x>260</x>
+           <y>110</y>
+           <width>261</width>
+           <height>91</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>YouYuan</family>
+           <pointsize>48</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>创建用户</string>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="editNewPassword">
+         <property name="geometry">
+          <rect>
+           <x>270</x>
+           <y>310</y>
+           <width>171</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="echoMode">
+          <enum>QLineEdit::EchoMode::Password</enum>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="btnConfirmCreate">
+         <property name="geometry">
+          <rect>
+           <x>230</x>
+           <y>380</y>
+           <width>101</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>YouYuan</family>
+           <pointsize>16</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>创建</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="buser">
+         <property name="geometry">
+          <rect>
+           <x>160</x>
+           <y>240</y>
+           <width>101</width>
+           <height>41</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>YouYuan</family>
+           <pointsize>22</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>用户名</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="btnLogin2">
+         <property name="geometry">
+          <rect>
+           <x>380</x>
+           <y>380</y>
+           <width>101</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>YouYuan</family>
+           <pointsize>16</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>登录</string>
+         </property>
+        </widget>
+       </widget>
+       <widget class="QWidget" name="Page2">
+        <widget class="QPushButton" name="btnSelectUser">
+         <property name="geometry">
+          <rect>
+           <x>370</x>
+           <y>420</y>
+           <width>101</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>YouYuan</family>
+           <pointsize>16</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>确定</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="acreatelogo_2">
+         <property name="geometry">
+          <rect>
+           <x>170</x>
+           <y>90</y>
+           <width>261</width>
+           <height>81</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>YouYuan</family>
+           <pointsize>48</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>选择用户</string>
+         </property>
+        </widget>
+        <widget class="QListWidget" name="listExistingUsers">
+         <property name="geometry">
+          <rect>
+           <x>130</x>
+           <y>180</y>
+           <width>341</width>
+           <height>221</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>18</pointsize>
+          </font>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="btnBrowseUsers">
+         <property name="geometry">
+          <rect>
+           <x>250</x>
+           <y>420</y>
+           <width>101</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>YouYuan</family>
+           <pointsize>16</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>导出用户</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="btnDeleteUser">
+         <property name="geometry">
+          <rect>
+           <x>130</x>
+           <y>460</y>
+           <width>101</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>YouYuan</family>
+           <pointsize>16</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>删除用户</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="btnCreate2">
+         <property name="geometry">
+          <rect>
+           <x>130</x>
+           <y>420</y>
+           <width>101</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>YouYuan</family>
+           <pointsize>16</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>创建用户</string>
+         </property>
+        </widget>
+       </widget>
+       <widget class="QWidget" name="Page3">
+        <widget class="QLabel" name="acreatelogo_3">
+         <property name="geometry">
+          <rect>
+           <x>250</x>
+           <y>90</y>
+           <width>271</width>
+           <height>91</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>YouYuan</family>
+           <pointsize>48</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>输入密码</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="bkey_4">
+         <property name="geometry">
+          <rect>
+           <x>100</x>
+           <y>290</y>
+           <width>121</width>
+           <height>41</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>YouYuan</family>
+           <pointsize>22</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>  密  码</string>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="editLoginPassword">
+         <property name="geometry">
+          <rect>
+           <x>260</x>
+           <y>290</y>
+           <width>211</width>
+           <height>41</height>
+          </rect>
+         </property>
+         <property name="echoMode">
+          <enum>QLineEdit::EchoMode::Password</enum>
+         </property>
+        </widget>
+        <widget class="QLabel" name="labelLoginUser">
+         <property name="geometry">
+          <rect>
+           <x>260</x>
+           <y>230</y>
+           <width>211</width>
+           <height>41</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>YouYuan</family>
+           <pointsize>22</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+        <widget class="QLabel" name="buser_2">
+         <property name="geometry">
+          <rect>
+           <x>100</x>
+           <y>240</y>
+           <width>121</width>
+           <height>41</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>YouYuan</family>
+           <pointsize>22</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>  用户名</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="btnConfirmLogin">
+         <property name="geometry">
+          <rect>
+           <x>310</x>
+           <y>370</y>
+           <width>101</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>YouYuan</family>
+           <pointsize>14</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>登录</string>
+         </property>
+        </widget>
+       </widget>
+       <widget class="QWidget" name="Page4dash">
+        <widget class="QLabel" name="labelWelcome">
+         <property name="geometry">
+          <rect>
+           <x>140</x>
+           <y>10</y>
+           <width>421</width>
+           <height>61</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>YouYuan</family>
+           <pointsize>36</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="btnLogout">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>10</y>
+           <width>101</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>YouYuan</family>
+           <pointsize>14</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>登出</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="acreatelogo_4">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>120</y>
+           <width>211</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>YouYuan</family>
+           <pointsize>22</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>账户列表</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="btnAddAccount">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>350</y>
+           <width>101</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>YouYuan</family>
+           <pointsize>14</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>添加账户</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="btnRemoveAccount">
+         <property name="geometry">
+          <rect>
+           <x>180</x>
+           <y>350</y>
+           <width>101</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>YouYuan</family>
+           <pointsize>14</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>删除账户</string>
+         </property>
+        </widget>
+        <widget class="QListWidget" name="listAccounts">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>150</y>
+           <width>261</width>
+           <height>192</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="btnEditAccount">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>420</y>
+           <width>261</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>YouYuan</family>
+           <pointsize>14</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>编辑账户</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="labelTotalBalance">
+         <property name="geometry">
+          <rect>
+           <x>330</x>
+           <y>120</y>
+           <width>271</width>
+           <height>41</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>YouYuan</family>
+           <pointsize>22</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="btnImportBill">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>480</y>
+           <width>101</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>YouYuan</family>
+           <pointsize>14</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>导入账单</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="btneditcate">
+         <property name="geometry">
+          <rect>
+           <x>180</x>
+           <y>480</y>
+           <width>101</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>YouYuan</family>
+           <pointsize>14</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>编辑类别</string>
+         </property>
+        </widget>
+       </widget>
+       <widget class="QWidget" name="Page5">
+        <widget class="QTableView" name="tableTransactions">
+         <property name="geometry">
+          <rect>
+           <x>80</x>
+           <y>100</y>
+           <width>541</width>
+           <height>371</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLabel" name="acreatelogo_5">
+         <property name="geometry">
+          <rect>
+           <x>80</x>
+           <y>30</y>
+           <width>201</width>
+           <height>61</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>YouYuan</family>
+           <pointsize>36</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>编辑账单</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="btnAddTransaction">
+         <property name="geometry">
+          <rect>
+           <x>80</x>
+           <y>480</y>
+           <width>101</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>YouYuan</family>
+           <pointsize>14</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>添加交易</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="btnRemoveTransaction">
+         <property name="geometry">
+          <rect>
+           <x>520</x>
+           <y>480</y>
+           <width>101</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>YouYuan</family>
+           <pointsize>14</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>删除交易</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="labelCurrentAccountName">
+         <property name="geometry">
+          <rect>
+           <x>320</x>
+           <y>20</y>
+           <width>301</width>
+           <height>41</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>YouYuan</family>
+           <pointsize>22</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+        <widget class="QLabel" name="labelCurrentAccountBalance">
+         <property name="geometry">
+          <rect>
+           <x>320</x>
+           <y>60</y>
+           <width>301</width>
+           <height>41</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>YouYuan</family>
+           <pointsize>22</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>结余：</string>
+         </property>
+        </widget>
+       </widget>
+       <widget class="QWidget" name="Page6">
+        <widget class="QLabel" name="labelSelectedFile">
+         <property name="geometry">
+          <rect>
+           <x>40</x>
+           <y>20</y>
+           <width>301</width>
+           <height>41</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>YouYuan</family>
+           <pointsize>22</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+        <widget class="QTableView" name="tableImportPreview">
+         <property name="geometry">
+          <rect>
+           <x>40</x>
+           <y>120</y>
+           <width>541</width>
+           <height>371</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QComboBox" name="comboTargetAccount">
+         <property name="geometry">
+          <rect>
+           <x>190</x>
+           <y>80</y>
+           <width>101</width>
+           <height>31</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="btnConfirmImport">
+         <property name="geometry">
+          <rect>
+           <x>40</x>
+           <y>500</y>
+           <width>101</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>YouYuan</family>
+           <pointsize>14</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>确认导入</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="labelCurrentAccountBalance_2">
+         <property name="geometry">
+          <rect>
+           <x>40</x>
+           <y>70</y>
+           <width>141</width>
+           <height>51</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>YouYuan</family>
+           <pointsize>22</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>导入至：</string>
+         </property>
+        </widget>
+       </widget>
+       <widget class="QWidget" name="Page7">
+        <widget class="QListWidget" name="listCategories">
+         <property name="geometry">
+          <rect>
+           <x>90</x>
+           <y>190</y>
+           <width>256</width>
+           <height>192</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLabel" name="listcategorieslogo">
+         <property name="geometry">
+          <rect>
+           <x>90</x>
+           <y>150</y>
+           <width>211</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>YouYuan</family>
+           <pointsize>22</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>类别列表</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="btnAddCategory">
+         <property name="geometry">
+          <rect>
+           <x>90</x>
+           <y>400</y>
+           <width>101</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>YouYuan</family>
+           <pointsize>14</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>添加类别</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="btnDeleteCategory">
+         <property name="geometry">
+          <rect>
+           <x>240</x>
+           <y>400</y>
+           <width>101</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>YouYuan</family>
+           <pointsize>14</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>删除类别</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="btnDashboard2">
+         <property name="geometry">
+          <rect>
+           <x>90</x>
+           <y>40</y>
+           <width>101</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>YouYuan</family>
+           <pointsize>14</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>返回</string>
+         </property>
+        </widget>
+       </widget>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>17</height>
+    </rect>
+   </property>
+  </widget>
+ </widget>
+ <resources>
+  <include location="logo.qrc"/>
+ </resources>
+ <connections/>
+</ui>
