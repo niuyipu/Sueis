@@ -26,10 +26,11 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->btnCreate2, &QPushButton::clicked, this, [=](){ showHomePage(); ui->pages->setCurrentIndex(1); });
     connect(ui->btnDeleteUser, &QPushButton::clicked,this, &MainWindow::onDeleteUser);
     connect(ui->btnLogin,  &QPushButton::clicked, this, [=](){onLogin();});
-    connect(ui->btnLogin2,  &QPushButton::clicked, this, [=](){onConfirmCreate(),onLogin();});
+    connect(ui->btnLogin2, &QPushButton::clicked, this,  [=](){onLogin();});
+    //connect(ui->btnLogin2,  &QPushButton::clicked, this, [=](){onConfirmCreate(),onLogin();});
 
     // Create User 页
-    connect(ui->btnConfirmCreate, &QPushButton::clicked, this, &MainWindow::onConfirmCreate);
+    connect(ui->btnConfirmCreate, &QPushButton::clicked, this,  [=](){onConfirmCreate(),onLogin();});
 
     // Select User 页
     connect(ui->btnSelectUser, &QPushButton::clicked, this, &MainWindow::onSelectUser);
@@ -57,8 +58,11 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->btnConfirmImport, &QPushButton::clicked,  this, &MainWindow::onConfirmImport);
 
     connect(ui->btneditcate, &QPushButton::clicked,  this,  &MainWindow::showeditcategory);
-    connect(ui->btnAddCategory, &QPushButton::clicked,  this,  &MainWindow::onAddCategory);
-    connect(ui->btnDeleteCategory, &QPushButton::clicked,  this,  &MainWindow::onRemoveCategory);
+    connect(ui->btnAddMajorCategory, &QPushButton::clicked,  this,  &MainWindow::AddMajorCategory);
+    connect(ui->btnAddMinorCategory, &QPushButton::clicked,  this,  &MainWindow::AddMinorCategory);
+    connect(ui->btnDeleteMajorCategory, &QPushButton::clicked,  this,  &MainWindow::DeleteMajorCategory);
+    connect(ui->btnDeleteMinorCategory, &QPushButton::clicked,  this,  &MainWindow::DeleteMinorCategory);
+    //connect(ui->btnDeleteCategory, &QPushButton::clicked,  this,  &MainWindow::onRemoveCategory);
     // 首次显示 Home
     showHomePage();
 }
@@ -126,12 +130,50 @@ void MainWindow::createUser(const QString &username, const QString &password) {
     QFile f2(path + "/accounts.json");
     if (f2.open(QIODevice::WriteOnly)) { f2.write("[]"); f2.close(); }
 
-    QStringList defaultCategories = { QStringLiteral("未分类") };
+    /*QStringList defaultCategories = { QStringLiteral("未分类") };
     QJsonArray catArr;
     for (const QString &cat : defaultCategories) {catArr.append(cat);}
     QJsonDocument catDoc(catArr);
     QFile fCategory(path + "/category.json");
-    if (fCategory.open(QIODevice::WriteOnly)) {fCategory.write(catDoc.toJson());fCategory.close();}
+    if (fCategory.open(QIODevice::WriteOnly)) {fCategory.write(catDoc.toJson());fCategory.close();}*/
+
+    QMap<QString, QStringList> defaultCategories = {
+        { QStringLiteral("收入"),       { QStringLiteral("工资／薪金"), QStringLiteral("奖金"), QStringLiteral("投资收益"), QStringLiteral("兼职收入"), QStringLiteral("礼金") } },
+        { QStringLiteral("餐饮"),       { QStringLiteral("早餐"), QStringLiteral("午餐"), QStringLiteral("晚餐"), QStringLiteral("夜宵"), QStringLiteral("零食"), QStringLiteral("饮料") } },
+        { QStringLiteral("交通出行"),    { QStringLiteral("公交／地铁"), QStringLiteral("打车"), QStringLiteral("私车油费"), QStringLiteral("停车费"), QStringLiteral("高铁／火车票"), QStringLiteral("机票") } },
+        { QStringLiteral("住房"),       { QStringLiteral("房租／按揭"), QStringLiteral("物业费"), QStringLiteral("水费"), QStringLiteral("电费"), QStringLiteral("燃气费"), QStringLiteral("网络费") } },
+        { QStringLiteral("通信"),       { QStringLiteral("手机话费"), QStringLiteral("宽带费"), QStringLiteral("邮寄快递费") } },
+        { QStringLiteral("日常购物"),    { QStringLiteral("服饰鞋包"), QStringLiteral("超市购物"), QStringLiteral("家居用品"), QStringLiteral("美妆护肤") } },
+        { QStringLiteral("娱乐休闲"),    { QStringLiteral("电影／演出"), QStringLiteral("旅游／酒店"), QStringLiteral("健身／运动"), QStringLiteral("游戏／动漫"), QStringLiteral("聚会") } },
+        { QStringLiteral("教育学习"),    { QStringLiteral("书籍"), QStringLiteral("培训课程"), QStringLiteral("考试报名费"), QStringLiteral("线上课程") } },
+        { QStringLiteral("医疗健康"),    { QStringLiteral("医药费"), QStringLiteral("体检费"), QStringLiteral("门诊／住院"), QStringLiteral("保险支出") } },
+        { QStringLiteral("理财投资"),    { QStringLiteral("基金／股票"), QStringLiteral("P2P／互联网理财"), QStringLiteral("定期存款") } },
+        { QStringLiteral("其他支出"),    { QStringLiteral("捐赠／公益"), QStringLiteral("手续费"), QStringLiteral("宠物开销"), QStringLiteral("杂项") } }
+    };
+
+    // 2. 构造 JSON 结构
+    QJsonArray categoryArray;
+    for (auto it = defaultCategories.constBegin(); it != defaultCategories.constEnd(); ++it) {
+        QJsonObject majorObj;
+        majorObj.insert("name", it.key());              // 大类名称
+        QJsonArray subArr;
+        for (const QString &sub : it.value())
+            subArr.append(sub);                         // 子类名称
+        majorObj.insert("sub", subArr);                 // 子类数组
+        categoryArray.append(majorObj);
+    }
+
+    QJsonObject rootObj;
+    rootObj.insert("categories", categoryArray);        // 根对象里放categories键
+
+    QJsonDocument catDoc(rootObj);
+
+    // 3. 写入文件
+    QFile fCategory(path + "/category.json");
+    if (fCategory.open(QIODevice::WriteOnly)) {
+        fCategory.write(catDoc.toJson(QJsonDocument::Indented));  // Indented 可读性更高
+        fCategory.close();
+    }
     QMessageBox::information(this, "成功", "用户创建成功");
 }
 
@@ -444,6 +486,34 @@ void MainWindow::onEditAccount() {
         QMessageBox::critical(this, "错误", "加载数据失败：" + transactionModel->lastError().text());
         return;
     }
+    transactionModel->setHeaderData(
+        transactionModel->fieldIndex("date"),
+        Qt::Horizontal,
+        QObject::tr("日期")
+        );
+    transactionModel->setHeaderData(
+        transactionModel->fieldIndex("amount"),
+        Qt::Horizontal,
+        QObject::tr("金额")
+        );
+    transactionModel->setHeaderData(
+        transactionModel->fieldIndex("category"),
+        Qt::Horizontal,
+        QObject::tr("类别")
+        );
+    transactionModel->setHeaderData(
+        transactionModel->fieldIndex("outin"),
+        Qt::Horizontal,
+        QObject::tr("收入/支出")
+        );
+    transactionModel->setHeaderData(
+        transactionModel->fieldIndex("note"),
+        Qt::Horizontal,
+        QObject::tr("备注")
+        );
+
+    // 将模型绑定到视图
+    ui->tableTransactions->setModel(transactionModel);
 
     // 计算并显示当前账户结余
     updateCurrentBalance();
@@ -453,9 +523,9 @@ void MainWindow::onEditAccount() {
     if (q.next()) balance = q.value(0).toDouble();
     ui->labelCurrentAccountBalance->setText(
         QString("结余: %1").arg(balance));
+    */
+    ui->labelCurrentAccountName->setText(QString("账户：%1").arg(currentAccount));
 
-    ui->labelCurrentAccountName->setText(QString("账户：%1").arg(currentAccount));*/
-    // 绑定到视图
     ui->tableTransactions->setModel(transactionModel);
     ui->tableTransactions->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->tableTransactions->setSelectionBehavior(QAbstractItemView::SelectRows);
@@ -468,26 +538,79 @@ void MainWindow::onEditAccount() {
 }
 
 
+
+
+
+
+
+
+
+
+
+
 //记账
 void MainWindow::onAddTransaction() {
     bool ok;
-    QString jsonPath = QDir::currentPath() + "/users/" + currentUser + "/category.json";
+    /*QString jsonPath = QDir::currentPath() + "/users/" + currentUser + "/category.json";
     QFile f(jsonPath);
     QStringList categories;
     if (f.open(QIODevice::ReadOnly)) {QJsonDocument doc = QJsonDocument::fromJson(f.readAll());
         QJsonArray arr = doc.array(); for (const QJsonValue &v : arr) { if (v.isString()) {categories.append(v.toString()); } } f.close();
-    } else {QMessageBox::warning(this, "错误", "无法加载类别文件：" + f.errorString());return;}
+    } else {QMessageBox::warning(this, "错误", "无法加载类别文件：" + f.errorString());return;}*/
+    QString jsonPath = QDir::currentPath() + "/users/" + currentUser + "/category.json";
+    QFile f(jsonPath);
+    if (!f.open(QIODevice::ReadOnly)) {
+        QMessageBox::warning(this, tr("错误"), tr("无法加载类别文件：%1").arg(f.errorString()));
+        return;
+    }
+
+    QJsonDocument doc = QJsonDocument::fromJson(f.readAll());
+    f.close();
+
+    if (!doc.isObject()) {
+        QMessageBox::warning(this, tr("错误"), tr("类别文件格式不正确"));
+        return;
+    }
+    QJsonObject rootObj = doc.object();
+    QJsonArray categoryArr = rootObj.value("categories").toArray();
+
+    QStringList majorList;
+    for (const QJsonValue &val : categoryArr) {
+        if (val.isObject()) {
+            QString majorName = val.toObject().value("name").toString();
+            majorList.append(majorName);
+        }
+    }
+
     double amt = QInputDialog::getDouble(this, "添加交易", "金额（不能为负）:", 0, 0, 1e9, 2, &ok);
     if (!ok) return;
+
     QStringList outins = { "收入", "支出" };
-    QString category = QInputDialog::getItem(this,tr("选择类别"),  tr("请选择类别："), categories, 0,false, &ok);
+    /*QString category = QInputDialog::getItem(this,tr("选择类别"),  tr("请选择类别："), categories, 0,false, &ok);
+    if (!ok) return;*/
+
+    QString major = QInputDialog::getItem(
+        this, tr("选择大类"), tr("请选择大类："),majorList,0, false,  &ok);
     if (!ok) return;
+    QStringList subList;
+    for (const QJsonValue &val : categoryArr) {
+        if (!val.isObject()) continue;
+        QJsonObject obj = val.toObject();
+        if (obj.value("name").toString() == major) {
+            QJsonArray subs = obj.value("sub").toArray();
+            for (const QJsonValue &s : subs) {
+                if (s.isString()) subList.append(s.toString()); }break; }}
+    QString category;
+    if (subList.isEmpty()) { category = major;
+    } else {category = QInputDialog::getItem( this,tr("选择小类"),
+            tr("请选择“%1”的小类：").arg(major),  subList, 0, false,&ok );if (!ok) return;
+        category = major + "/" + category;}qDebug() << "选择的类别是：" << category;
+
     QString outin= QInputDialog::getItem(this,"收支","请选择收支：",outins,0,false);
     if (!ok) return;
     QString note = QInputDialog::getText(this, "备注", "请输入备注(选填):");
     //QString date = QDate::currentDate().toString(Qt::ISODate);
 
-    // 1. 年
     int currentYear = QDate::currentDate().year();
     QStringList years;
     for (int y = currentYear - 100; y <= currentYear; ++y) {
@@ -499,7 +622,6 @@ void MainWindow::onAddTransaction() {
     if (!okYear) return;
     int year = yearStr.toInt();
 
-    // 2. 月
     QStringList months;
     for (int m = 1; m <= 12; ++m) { months << QString::number(m);}
     bool okMonth = false;
@@ -509,7 +631,6 @@ void MainWindow::onAddTransaction() {
     if (!okMonth) return;
     int month = monthStr.toInt();
 
-    // 3. 日 —— 要根据年/月算出当月天数
     int daysInMonth = QDate(year, month, 1).daysInMonth();
     QStringList days;
     for (int d = 1; d <= daysInMonth; ++d) {days << QString::number(d);}
@@ -518,9 +639,7 @@ void MainWindow::onAddTransaction() {
         QDate::currentDate().day() - 1,false, &okDay); if (!okDay) return;
     int day = dayStr.toInt();
 
-    // 4. 拼成 QDate
     QDate selected = QDate(year, month, day);
-    // 然后转字符串或直接使用
     QString date = selected.toString(Qt::ISODate);
 
     QSqlRecord rec = transactionModel->record();
@@ -633,6 +752,16 @@ void MainWindow::updateTotalBalance() {
         );
 }
 
+
+
+
+
+
+
+
+
+
+
 //Page6
 
 void MainWindow::onImportBill() {
@@ -703,9 +832,9 @@ void MainWindow::onConfirmImport() {
     for (int r = 0; r < previewModel->rowCount(); ++r) {
         QSqlRecord rec = model.record();
         rec.setValue("date",     previewModel->item(r, 0)->text());
-        rec.setValue("amount",   previewModel->item(r, 5)->text().toDouble());
-        rec.setValue("category", previewModel->item(r, 4)->text());
         rec.setValue("note",     previewModel->item(r, 1)->text());
+        rec.setValue("outin", previewModel->item(r, 4)->text());
+        rec.setValue("amount",   previewModel->item(r, 5)->text().toDouble());
         model.insertRecord(-1, rec);
     }
     model.submitAll();
@@ -739,8 +868,8 @@ void MainWindow::showeditcategory(){
     loadCategories(selectedUser);
 }
 
-void MainWindow::loadCategories(const QString &username) {
-    // 构造路径
+/*void MainWindow::loadCategories(const QString &username) {
+
     QString path = QDir::currentPath()+ "/users/" + username + "/category.json";
     QFile f(path);
     if (!f.open(QIODevice::ReadOnly)) { ui->listCategories->clear();return;}
@@ -756,7 +885,50 @@ void MainWindow::loadCategories(const QString &username) {
             ui->listCategories->addItem(v.toString());
         }
     }
+}*/
+void MainWindow::loadCategories(const QString &username) {
+    // 1. 构造路径
+    QString path = QDir::currentPath() + "/users/" + username + "/category.json";
+    QFile f(path);
+    if (!f.open(QIODevice::ReadOnly)) {
+        ui->treeCategories->clear();
+        return;
+    }
+
+    QByteArray data = f.readAll();
+    f.close();
+    QJsonDocument doc = QJsonDocument::fromJson(data);
+    if (!doc.isObject()) {
+        ui->treeCategories->clear();
+        return;
+    }
+    QJsonArray arr = doc.object().value("categories").toArray();
+
+    ui->treeCategories->clear();
+    ui->treeCategories->setHeaderLabel(tr("类别"));
+
+    for (const QJsonValue &v : arr) {
+        if (!v.isObject()) continue;
+        QJsonObject obj = v.toObject();
+
+        // 大类节点
+        QString majorName = obj.value("name").toString();
+        QTreeWidgetItem *majorItem = new QTreeWidgetItem(ui->treeCategories);
+        majorItem->setText(0, majorName);
+
+        // 子类节点
+        QJsonArray subs = obj.value("sub").toArray();
+        for (const QJsonValue &s : subs) {
+            if (s.isString()) {
+                QTreeWidgetItem *subItem = new QTreeWidgetItem(majorItem);
+                subItem->setText(0, s.toString());
+            }
+        }
+        // 默认展开
+        majorItem->setExpanded(true);
+    }
 }
+
 
 
 void MainWindow::saveCategories(const QString &username, const QJsonArray &arr) {
@@ -767,9 +939,339 @@ void MainWindow::saveCategories(const QString &username, const QJsonArray &arr) 
         f.close();
     }
 }
+// 添加大类
+void MainWindow::AddMajorCategory() {
+    bool ok = false;
+    QString name = QInputDialog::getText(
+        this,
+        tr("添加大类"),
+        tr("请输入大类名称："),
+        QLineEdit::Normal,
+        QString(),
+        &ok
+        );
+    if (!ok) return;
+    name = name.trimmed();
+    if (name.isEmpty()) {
+        QMessageBox::warning(this, tr("错误"), tr("名称不能为空"));
+        return;
+    }
+
+    // 校验：只允许中文、英文字母、数字
+    QRegularExpression regex(QStringLiteral("^[\u4e00-\u9fa5a-zA-Z0-9]+$"));
+    if (!regex.match(name).hasMatch()) {
+        QMessageBox::warning(this, tr("无效名称"), tr("名称只能包含中文、字母和数字"));
+        return;
+    }
+
+    // 读取 JSON
+    QString path = QDir::currentPath() + "/users/" + currentUser + "/category.json";
+    QFile file(path);
+    QJsonObject rootObj;
+    QJsonArray catArr;
+    if (file.open(QIODevice::ReadOnly)) {
+        QJsonDocument doc = QJsonDocument::fromJson(file.readAll());
+        if (doc.isObject())
+            catArr = doc.object().value("categories").toArray();
+        file.close();
+    } else {
+        // 确保目录存在
+        QDir().mkpath(QFileInfo(path).absolutePath());
+    }
+
+    // 去重
+    for (const QJsonValue &v : catArr) {
+        if (v.isObject() && v.toObject().value("name").toString() == name) {
+            QMessageBox::information(this, tr("提示"), tr("该大类已存在"));
+            return;
+        }
+    }
+
+    // 追加大类对象（无子类）
+    QJsonObject newMajor;
+    newMajor.insert("name", name);
+    newMajor.insert("sub", QJsonArray());
+    catArr.append(newMajor);
+
+    // 写回文件
+    rootObj.insert("categories", catArr);
+    QJsonDocument outDoc(rootObj);
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
+        QMessageBox::warning(this, tr("错误"), tr("无法写入类别文件：%1").arg(file.errorString()));
+        return;
+    }
+    file.write(outDoc.toJson(QJsonDocument::Indented));
+    file.close();
+
+    // 刷新显示
+    loadCategories(currentUser);
+}
 
 
-void MainWindow::onAddCategory() {
+// 添加小类
+void MainWindow::AddMinorCategory() {
+    // 1. 选择要添加到哪个大类
+    // 先加载所有大类名
+    QStringList majors;
+    QString path = QDir::currentPath() + "/users/" + currentUser + "/category.json";
+    QFile file(path);
+    QJsonArray catArr;
+    if (file.open(QIODevice::ReadOnly)) {
+        QJsonDocument doc = QJsonDocument::fromJson(file.readAll());
+        if (doc.isObject())
+            catArr = doc.object().value("categories").toArray();
+        file.close();
+    }
+    for (const QJsonValue &v : catArr) {
+        if (v.isObject()) {
+            majors.append(v.toObject().value("name").toString());
+        }
+    }
+
+    bool okMajor = false;
+    QString selectedMajor = QInputDialog::getItem(
+        this,
+        tr("选择大类"),
+        tr("请选择要添加小类的所属大类："),
+        majors,
+        0,
+        false,
+        &okMajor
+        );
+    if (!okMajor) return;
+
+    // 2. 让用户输入小类名称
+    bool okSub = false;
+    QString subName = QInputDialog::getText(
+        this,
+        tr("添加小类"),
+        tr("请输入小类名称："),
+        QLineEdit::Normal,
+        QString(),
+        &okSub
+        );
+    if (!okSub) return;
+    subName = subName.trimmed();
+    if (subName.isEmpty()) {
+        QMessageBox::warning(this, tr("错误"), tr("名称不能为空"));
+        return;
+    }
+
+    // 校验
+    QRegularExpression regex(QStringLiteral("^[\u4e00-\u9fa5a-zA-Z0-9]+$"));
+    if (!regex.match(subName).hasMatch()) {
+        QMessageBox::warning(this, tr("无效名称"), tr("名称只能包含中文、字母和数字"));
+        return;
+    }
+
+    // 3. 在 JSON 中找到对应大类并去重后添加
+    QJsonObject rootObj;
+    if (file.open(QIODevice::ReadOnly)) {
+        QJsonDocument doc = QJsonDocument::fromJson(file.readAll());
+        if (doc.isObject())
+            rootObj = doc.object();
+        file.close();
+    }
+    catArr = rootObj.value("categories").toArray();
+
+
+    // 3. 在 JSON 中找到对应大类并用下标修改
+    for (int i = 0; i < catArr.size(); ++i) {
+        QJsonObject obj = catArr[i].toObject();
+        if (obj.value("name").toString() == selectedMajor) {
+            QJsonArray subs = obj.value("sub").toArray();
+            // 去重
+            for (const QJsonValue &s : subs) {
+                if (s.toString() == subName) {
+                    QMessageBox::information(this, tr("提示"), tr("该小类已存在"));
+                    return;
+                }
+            }
+            // 添加
+            subs.append(subName);
+            obj.insert("sub", subs);
+            // 写回
+            catArr[i] = obj;
+            break;
+        }
+    }
+
+    // 写回 rootObj 并保存文件、刷新界面
+    rootObj.insert("categories", catArr);
+    QJsonDocument outDoc(rootObj);
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
+        QMessageBox::warning(this, tr("错误"), tr("无法写入类别文件：%1").arg(file.errorString()));
+        return;
+    }
+    file.write(outDoc.toJson(QJsonDocument::Indented));
+    file.close();
+    loadCategories(currentUser);
+
+}
+
+// 删除大类
+void MainWindow::DeleteMajorCategory() {
+    // 1. 读取现有大类
+    QString path = QDir::currentPath() + "/users/" + currentUser + "/category.json";
+    QFile file(path);
+    if (!file.open(QIODevice::ReadOnly)) {
+        QMessageBox::information(this, tr("提示"), tr("没有可删除的大类"));
+        return;
+    }
+    QJsonDocument doc = QJsonDocument::fromJson(file.readAll());
+    file.close();
+    if (!doc.isObject()) {
+        QMessageBox::warning(this, tr("错误"), tr("类别文件格式不正确"));
+        return;
+    }
+    QJsonArray catArr = doc.object().value("categories").toArray();
+    if (catArr.isEmpty()) {
+        QMessageBox::information(this, tr("提示"), tr("没有可删除的大类"));
+        return;
+    }
+
+    // 2. 让用户选择要删除哪个大类
+    QStringList majors;
+    for (const QJsonValue &v : catArr) {
+        QJsonObject obj = v.toObject();
+        majors.append(obj.value("name").toString());
+    }
+    bool ok = false;
+    QString toDelete = QInputDialog::getItem(
+        this, tr("删除大类"), tr("请选择要删除的大类："),
+        majors, 0, false, &ok
+        );
+    if (!ok) return;
+
+    // 3. 确认删除
+    if (QMessageBox::question(
+            this, tr("确认删除"),
+            tr("确定要删除大类“%1”及其所有子类吗？").arg(toDelete),
+            QMessageBox::Yes|QMessageBox::No, QMessageBox::No
+            ) != QMessageBox::Yes) {
+        return;
+    }
+
+    // 4. 从数组中移除选中的大类
+    for (int i = 0; i < catArr.size(); ++i) {
+        QJsonObject obj = catArr[i].toObject();
+        if (obj.value("name").toString() == toDelete) {
+            catArr.removeAt(i);
+            break;
+        }
+    }
+
+    // 5. 写回文件
+    QJsonObject rootObj;
+    rootObj.insert("categories", catArr);
+    QJsonDocument outDoc(rootObj);
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
+        QMessageBox::warning(this, tr("错误"),
+                             tr("无法写入类别文件：%1").arg(file.errorString()));
+        return;
+    }
+    file.write(outDoc.toJson(QJsonDocument::Indented));
+    file.close();
+
+    // 6. 刷新视图
+    loadCategories(currentUser);
+}
+
+
+// 删除小类
+void MainWindow::DeleteMinorCategory() {
+    // 1. 读取 JSON 并提取大类列表
+    QString path = QDir::currentPath() + "/users/" + currentUser + "/category.json";
+    QFile file(path);
+    if (!file.open(QIODevice::ReadOnly)) {
+        QMessageBox::information(this, tr("提示"), tr("没有可删除的小类"));
+        return;
+    }
+    QJsonDocument doc = QJsonDocument::fromJson(file.readAll());
+    file.close();
+    if (!doc.isObject()) {
+        QMessageBox::warning(this, tr("错误"), tr("类别文件格式不正确"));
+        return;
+    }
+    QJsonArray catArr = doc.object().value("categories").toArray();
+
+    // 2. 选择大类
+    QStringList majors;
+    for (const QJsonValue &v : catArr) {
+        QJsonObject obj = v.toObject();
+        majors.append(obj.value("name").toString());
+    }
+    bool okMajor = false;
+    QString major = QInputDialog::getItem(
+        this, tr("选择大类"), tr("请选择所属大类："),
+        majors, 0, false, &okMajor
+        );
+    if (!okMajor) return;
+
+    // 3. 找到对应大类的子类列表
+    int majorIndex = -1;
+    QStringList subs;
+    for (int i = 0; i < catArr.size(); ++i) {
+        QJsonObject obj = catArr[i].toObject();
+        if (obj.value("name").toString() == major) {
+            majorIndex = i;
+            for (const QJsonValue &sv : obj.value("sub").toArray())
+                subs.append(sv.toString());
+            break;
+        }
+    }
+    if (majorIndex < 0 || subs.isEmpty()) {
+        QMessageBox::information(this, tr("提示"),
+                                 tr("大类“%1”下没有可删除的小类").arg(major));
+        return;
+    }
+
+    // 4. 选择要删除的小类
+    bool okSub = false;
+    QString sub = QInputDialog::getItem(
+        this, tr("删除小类"), tr("请选择要删除的小类："),
+        subs, 0, false, &okSub
+        );
+    if (!okSub) return;
+
+    // 5. 确认删除
+    if (QMessageBox::question(
+            this, tr("确认删除"),
+            tr("确定要删除“%1”下的小类“%2”吗？").arg(major, sub),
+            QMessageBox::Yes|QMessageBox::No, QMessageBox::No
+            ) != QMessageBox::Yes) {
+        return;
+    }
+
+    // 6. 从 JSON 数组中移除该子类
+    QJsonObject majorObj = catArr[majorIndex].toObject();
+    QJsonArray subArr = majorObj.value("sub").toArray();
+    for (int j = 0; j < subArr.size(); ++j) {
+        if (subArr[j].toString() == sub) {
+            subArr.removeAt(j);
+            break;
+        }
+    }
+    majorObj.insert("sub", subArr);
+    catArr[majorIndex] = majorObj;
+
+    // 7. 写回文件
+    QJsonObject rootObj;
+    rootObj.insert("categories", catArr);
+    QJsonDocument outDoc(rootObj);
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
+        QMessageBox::warning(this, tr("错误"),
+                             tr("无法写入类别文件：%1").arg(file.errorString()));
+        return;
+    }
+    file.write(outDoc.toJson(QJsonDocument::Indented));
+    file.close();
+
+    // 8. 刷新视图
+    loadCategories(currentUser);
+}
+
+/*void MainWindow::onAddCategory() {
     // 1. 弹出输入框，让用户输入类别名
     bool ok = false;
     QString name = QInputDialog::getText( this, tr("添加类别"), tr("类别名称："), QLineEdit::Normal, QString(),&ok);
@@ -863,3 +1365,4 @@ void MainWindow::onRemoveCategory()
     // 6. 刷新界面
     loadCategories(currentUser);
 }
+*/

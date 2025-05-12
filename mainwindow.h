@@ -52,8 +52,11 @@ private slots:
     void onConfirmImport();        // 确认导入到目标账户
 
     void showeditcategory();
-    void onAddCategory();
-    void onRemoveCategory();
+    void AddMajorCategory();
+    void AddMinorCategory();
+    void DeleteMajorCategory();
+    void DeleteMinorCategory();
+    //void onRemoveCategory();
 
 private:
     Ui::MainWindow *ui;

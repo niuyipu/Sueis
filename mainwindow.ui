@@ -106,7 +106,7 @@
         </sizepolicy>
        </property>
        <property name="currentIndex">
-        <number>1</number>
+        <number>5</number>
        </property>
        <widget class="QWidget" name="Page0">
         <widget class="QLabel" name="logo">
@@ -203,7 +203,7 @@
         <widget class="QLabel" name="acreatelogo">
          <property name="geometry">
           <rect>
-           <x>260</x>
+           <x>220</x>
            <y>110</y>
            <width>261</width>
            <height>91</height>
@@ -235,8 +235,8 @@
         <widget class="QPushButton" name="btnConfirmCreate">
          <property name="geometry">
           <rect>
-           <x>230</x>
-           <y>380</y>
+           <x>310</x>
+           <y>370</y>
            <width>101</width>
            <height>31</height>
           </rect>
@@ -273,8 +273,8 @@
         <widget class="QPushButton" name="btnLogin2">
          <property name="geometry">
           <rect>
-           <x>380</x>
-           <y>380</y>
+           <x>70</x>
+           <y>60</y>
            <width>101</width>
            <height>31</height>
           </rect>
@@ -286,7 +286,7 @@
           </font>
          </property>
          <property name="text">
-          <string>登录</string>
+          <string>登录页面</string>
          </property>
         </widget>
        </widget>
@@ -882,16 +882,6 @@
         </widget>
        </widget>
        <widget class="QWidget" name="Page7">
-        <widget class="QListWidget" name="listCategories">
-         <property name="geometry">
-          <rect>
-           <x>90</x>
-           <y>190</y>
-           <width>256</width>
-           <height>192</height>
-          </rect>
-         </property>
-        </widget>
         <widget class="QLabel" name="listcategorieslogo">
          <property name="geometry">
           <rect>
@@ -911,7 +901,7 @@
           <string>类别列表</string>
          </property>
         </widget>
-        <widget class="QPushButton" name="btnAddCategory">
+        <widget class="QPushButton" name="btnAddMajorCategory">
          <property name="geometry">
           <rect>
            <x>90</x>
@@ -927,10 +917,10 @@
           </font>
          </property>
          <property name="text">
-          <string>添加类别</string>
+          <string>添加大类</string>
          </property>
         </widget>
-        <widget class="QPushButton" name="btnDeleteCategory">
+        <widget class="QPushButton" name="btnDeleteMajorCategory">
          <property name="geometry">
           <rect>
            <x>240</x>
@@ -946,7 +936,7 @@
           </font>
          </property>
          <property name="text">
-          <string>删除类别</string>
+          <string>删除大类</string>
          </property>
         </widget>
         <widget class="QPushButton" name="btnDashboard2">
@@ -966,6 +956,65 @@
          </property>
          <property name="text">
           <string>返回</string>
+         </property>
+        </widget>
+        <widget class="QTreeWidget" name="treeCategories">
+         <property name="geometry">
+          <rect>
+           <x>90</x>
+           <y>190</y>
+           <width>256</width>
+           <height>192</height>
+          </rect>
+         </property>
+         <property name="headerHidden">
+          <bool>true</bool>
+         </property>
+         <attribute name="headerVisible">
+          <bool>false</bool>
+         </attribute>
+         <column>
+          <property name="text">
+           <string notr="true">1</string>
+          </property>
+         </column>
+        </widget>
+        <widget class="QPushButton" name="btnAddMinorCategory">
+         <property name="geometry">
+          <rect>
+           <x>90</x>
+           <y>450</y>
+           <width>101</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>YouYuan</family>
+           <pointsize>14</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>添加小类</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="btnDeleteMinorCategory">
+         <property name="geometry">
+          <rect>
+           <x>240</x>
+           <y>450</y>
+           <width>101</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>YouYuan</family>
+           <pointsize>14</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>删除小类</string>
          </property>
         </widget>
        </widget>
