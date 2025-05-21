@@ -23,7 +23,7 @@
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>91</width>
+      <width>110</width>
       <height>581</height>
      </rect>
     </property>
@@ -106,7 +106,7 @@
         </sizepolicy>
        </property>
        <property name="currentIndex">
-        <number>5</number>
+        <number>4</number>
        </property>
        <widget class="QWidget" name="Page0">
         <widget class="QLabel" name="logo">
@@ -310,7 +310,7 @@
           <string>确定</string>
          </property>
         </widget>
-        <widget class="QLabel" name="acreatelogo_2">
+        <widget class="QLabel" name="label">
          <property name="geometry">
           <rect>
            <x>170</x>
@@ -403,7 +403,7 @@
         </widget>
        </widget>
        <widget class="QWidget" name="Page3">
-        <widget class="QLabel" name="acreatelogo_3">
+        <widget class="QLabel" name="label_2">
          <property name="geometry">
           <rect>
            <x>250</x>
@@ -422,7 +422,7 @@
           <string>输入密码</string>
          </property>
         </widget>
-        <widget class="QLabel" name="bkey_4">
+        <widget class="QLabel" name="label_4">
          <property name="geometry">
           <rect>
            <x>100</x>
@@ -473,7 +473,7 @@
           <string/>
          </property>
         </widget>
-        <widget class="QLabel" name="buser_2">
+        <widget class="QLabel" name="label_3">
          <property name="geometry">
           <rect>
            <x>100</x>
@@ -551,7 +551,7 @@
           <string>登出</string>
          </property>
         </widget>
-        <widget class="QLabel" name="acreatelogo_4">
+        <widget class="QLabel" name="label_5">
          <property name="geometry">
           <rect>
            <x>20</x>
@@ -694,6 +694,147 @@
           <string>编辑类别</string>
          </property>
         </widget>
+        <widget class="QPushButton" name="btnAnalysis">
+         <property name="geometry">
+          <rect>
+           <x>330</x>
+           <y>180</y>
+           <width>101</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>YouYuan</family>
+           <pointsize>14</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>收支报告</string>
+         </property>
+        </widget>
+        <widget class="QGroupBox" name="groupBox">
+         <property name="geometry">
+          <rect>
+           <x>330</x>
+           <y>310</y>
+           <width>261</width>
+           <height>201</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>YouYuan</family>
+           <pointsize>22</pointsize>
+          </font>
+         </property>
+         <property name="title">
+          <string>生成报表</string>
+         </property>
+         <widget class="QDateEdit" name="dateStart">
+          <property name="geometry">
+           <rect>
+            <x>20</x>
+            <y>50</y>
+            <width>101</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <family>YouYuan</family>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
+         </widget>
+         <widget class="QDateEdit" name="dateEnd">
+          <property name="geometry">
+           <rect>
+            <x>150</x>
+            <y>50</y>
+            <width>101</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <family>YouYuan</family>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="btnSelectFolder">
+          <property name="geometry">
+           <rect>
+            <x>20</x>
+            <y>100</y>
+            <width>101</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <family>YouYuan</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>选择文件夹</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="lblFolder">
+          <property name="geometry">
+           <rect>
+            <x>150</x>
+            <y>100</y>
+            <width>101</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+         <widget class="QComboBox" name="comboFormat">
+          <property name="geometry">
+           <rect>
+            <x>20</x>
+            <y>150</y>
+            <width>101</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <item>
+           <property name="text">
+            <string>csv</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>json</string>
+           </property>
+          </item>
+         </widget>
+         <widget class="QPushButton" name="btnGenerateReport">
+          <property name="geometry">
+           <rect>
+            <x>150</x>
+            <y>150</y>
+            <width>101</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <family>YouYuan</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>生成报表</string>
+          </property>
+         </widget>
+        </widget>
        </widget>
        <widget class="QWidget" name="Page5">
         <widget class="QTableView" name="tableTransactions">
@@ -706,7 +847,7 @@
           </rect>
          </property>
         </widget>
-        <widget class="QLabel" name="acreatelogo_5">
+        <widget class="QLabel" name="label_6">
          <property name="geometry">
           <rect>
            <x>80</x>
@@ -1015,6 +1156,230 @@
          </property>
          <property name="text">
           <string>删除小类</string>
+         </property>
+        </widget>
+       </widget>
+       <widget class="QWidget" name="Page8">
+        <widget class="QDateEdit" name="dateEditStart">
+         <property name="geometry">
+          <rect>
+           <x>80</x>
+           <y>140</y>
+           <width>101</width>
+           <height>31</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QDateEdit" name="dateEditEnd">
+         <property name="geometry">
+          <rect>
+           <x>80</x>
+           <y>190</y>
+           <width>101</width>
+           <height>31</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QComboBox" name="comboCategoryBig">
+         <property name="geometry">
+          <rect>
+           <x>80</x>
+           <y>240</y>
+           <width>101</width>
+           <height>31</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="btnApplyFilter">
+         <property name="geometry">
+          <rect>
+           <x>80</x>
+           <y>420</y>
+           <width>101</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>YouYuan</family>
+           <pointsize>16</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>筛选</string>
+         </property>
+        </widget>
+        <widget class="QComboBox" name="comboCategorySmall">
+         <property name="geometry">
+          <rect>
+           <x>80</x>
+           <y>290</y>
+           <width>101</width>
+           <height>31</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QComboBox" name="comboType">
+         <property name="geometry">
+          <rect>
+           <x>80</x>
+           <y>340</y>
+           <width>101</width>
+           <height>31</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QTableWidget" name="tableFilterResult">
+         <property name="geometry">
+          <rect>
+           <x>210</x>
+           <y>130</y>
+           <width>461</width>
+           <height>321</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLabel" name="labelFilterBalance">
+         <property name="geometry">
+          <rect>
+           <x>210</x>
+           <y>60</y>
+           <width>461</width>
+           <height>41</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>YouYuan</family>
+           <pointsize>22</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+        <widget class="QComboBox" name="comboAccount">
+         <property name="geometry">
+          <rect>
+           <x>80</x>
+           <y>90</y>
+           <width>101</width>
+           <height>31</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLabel" name="selecttip">
+         <property name="geometry">
+          <rect>
+           <x>80</x>
+           <y>70</y>
+           <width>81</width>
+           <height>21</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>YouYuan</family>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>选择账户</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="selecttip_2">
+         <property name="geometry">
+          <rect>
+           <x>80</x>
+           <y>120</y>
+           <width>81</width>
+           <height>21</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>YouYuan</family>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>开始日期</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="selecttip_3">
+         <property name="geometry">
+          <rect>
+           <x>80</x>
+           <y>170</y>
+           <width>81</width>
+           <height>21</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>YouYuan</family>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>结束日期</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="selecttip_4">
+         <property name="geometry">
+          <rect>
+           <x>80</x>
+           <y>220</y>
+           <width>81</width>
+           <height>21</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>YouYuan</family>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>选择大类</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="selecttip_5">
+         <property name="geometry">
+          <rect>
+           <x>80</x>
+           <y>270</y>
+           <width>81</width>
+           <height>21</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>YouYuan</family>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>选择小类</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="selecttip_6">
+         <property name="geometry">
+          <rect>
+           <x>80</x>
+           <y>320</y>
+           <width>81</width>
+           <height>21</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>YouYuan</family>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>选择收支</string>
          </property>
         </widget>
        </widget>
